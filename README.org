@@ -1,0 +1,41 @@
+#+TITLE: README
+
+[[https://melpa.org/#/evil-textobj-syntax][file:https://melpa.org/packages/evil-textobj-syntax-badge.svg]]
+
+* About
+
+This package is a port of [[https://github.com/kana/vim-textobj-syntax][vim-textobj-syntax]]. It provides evil text objects for
+consecutive items with same syntax highlight.
+
+For outer (~a~) object, if both leading and trailing white spaces exist, only
+trailing whitespaces are included.
+
+#+CAPTION: out object with leading and trailing white spaces
+[[./screenshots/a-leading-trailing.png]]
+
+Otherwise, leading/trailing/none white spaces
+are included.
+
+#+CAPTION: out object with leading white spaces only
+[[./screenshots/a-leading.png]]
+
+#+CAPTION: out object with trailing white spaces only
+[[./screenshots/a-trailing.png]]
+
+For inner object, no leading and trailing white spaces are included.
+
+#+CAPTION: inner object
+[[./screenshots/i.png]]
+
+* Customize variable
+
+~h~ (standing for "syntax (h)ighlight") is used as textobj key by default.
+You can customize it using the following variables.
+
+~evil-textobj-syntax-i-key~ (Default: "h")
+
+Keys for evil-i-syntax.
+
+~evil-textobj-syntax-a-key~ (Default: "h")
+
+Keys for evil-a-syntax

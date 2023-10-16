@@ -30,27 +30,18 @@
 ;;; Code:
 (require 'evil)
 
-;; `define-namespace' is autoloaded, so there's no need to require
-;; `names'. However, requiring it here means it will also work for
-;; people who don't install through package.el.
-(eval-when-compile (require 'names))
-
-(define-namespace evil-textobj-syntax-
-:package evil-textobj-syntax
-:group evil
-
-(defun -what-face (&optional pos)
+(defun evil-textobj-syntax--what-face (&optional pos)
   "Shows all faces at point"
   (let* ((pos (or pos (point)))
          (face (get-text-property pos 'face)))
     (unless (keywordp (car-safe face)) (list face))))
 
-(defun -whitespacep (c)
+(defun evil-textobj-syntax--whitespacep (c)
   "This function returns t if c is white spaces, nil otherwise."
   (= 32 (char-syntax c)))
 
-(defun -create-range (&optional inclusive)
-  (let ((point-face (-what-face))
+(defun evil-textobj-syntax--create-range (&optional inclusive)
+  (let ((point-face (evil-textobj-syntax--what-face))
         (backward-point (point)) ; last char when stop, including white space
         (backward-none-space-point (point)) ; last none white space char
         (forward-point (point)) ; last char when stop, including white space
@@ -64,8 +55,8 @@
       (let ((continue t))
         (while (and continue (>= (- (point) 1) (point-min)))
           (backward-char)
-          (let ((backward-point-face (-what-face)))
-            (if (-whitespacep (char-after))
+          (let ((backward-point-face (evil-textobj-syntax--what-face)))
+            (if (evil-textobj-syntax--whitespacep (char-after))
                 (setq backward-point (point))
               (if (equal point-face backward-point-face)
                   (progn (setq backward-point (point))
@@ -78,8 +69,8 @@
       (let ((continue t))
         (while (and continue (< (+ (point) 1) (point-max)))
           (forward-char)
-          (let ((forward-point-face (-what-face)))
-            (if (-whitespacep (char-after))
+          (let ((forward-point-face (evil-textobj-syntax--what-face)))
+            (if (evil-textobj-syntax--whitespacep (char-after))
                 (setq forward-point (point))
               (if (equal point-face forward-point-face)
                   (progn (setq forward-point (point))
@@ -103,9 +94,6 @@
       (setq end forward-none-space-point))
 
     (evil-range start (+ end 1))))
-
-;; end of namespace
-)
 
 (defgroup evil-textobj-syntax nil
   "Syntax text object for Evil"

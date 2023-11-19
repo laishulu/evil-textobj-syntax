@@ -3,7 +3,7 @@
 ;; URL: https://github.com/laishulu/evil-textobj-syntax
 ;; Created: November 1, 2018
 ;; Keywords: evil, syntax, highlight, text-object
-;; Package-Requires: ((names "0.5") (emacs "24") (evil "0"))
+;; Package-Requires: ((emacs "24") (evil "0"))
 ;; Version: 0.1
 
 ;; This file is not part of GNU Emacs.
